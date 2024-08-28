@@ -4,7 +4,6 @@
         id="my-chart-id"
         :options="chartOptions"
         :data="chartData"
-        style="max-width: 400px; max-height: 300px;"
     />
     </v-contanior>
     
@@ -32,8 +31,3 @@
     }
   }
   </script>
-
-
-<style>
-
-</style>

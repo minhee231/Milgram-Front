@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import totalDashboard from '@/views/TotalDashboard.vue'
-import TotalDashboard from '@/components/TotalViewsChart.vue'
 
 const routes = [
-  { path: '/', name: 'home', component: TotalDashboard },
+  {
+    path: '/',
+    name: 'testChart',
+    component: () => import('@/views/TotalDashboard.vue')
+  }
 
 ]
 
