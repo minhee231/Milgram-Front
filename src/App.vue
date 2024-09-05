@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <mainHeader class="main-header" />
     <div class="content">
       <router-view />
@@ -32,5 +32,10 @@ export default {
 .content {
   margin-top: 60px;
   padding: 20px;
+}
+
+#app {
+  background-color: #000000; /* 원하는 배경색 */
+  min-height: 100vh; /* 배경이 화면 전체를 덮도록 설정 */
 }
 </style>
