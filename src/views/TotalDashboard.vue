@@ -1,6 +1,18 @@
 <template>
   <v-row>
+      
       <v-col min-height="200vh" cols="1"></v-col> <!--공백-->
+      <v-list id="dataChangeList">
+        <v-list-item
+        v-for="n in buttonList"
+        :key="n"
+        :title="n"
+        @click="handleClick(n)"
+        link=""
+        >
+
+        </v-list-item>
+      </v-list>
       <v-col>
         <v-sheet class="bg-grey-darken-2" min-height="1000" rounded="lg">
           <totalViewsChart class="Chart"
@@ -36,10 +48,19 @@ export default {
     totalViewsChart,
     Ranking,
   },
+  watch: {
+
+  },
   data() {
     return {
-      characterData: null,
+      buttonList: [
+        "Total",
+        "Daily",
+        "Weekly"
+      ],
       _chartData: chartData,
+
+      characterData: null,
       chartRendered: false,
       characterSortData: null,
       characterImages: null,
@@ -48,21 +69,6 @@ export default {
     }
   },
   methods: {
-    async fetchCharacterDetails() {
-      try {
-        const response = await characterInfo.getCharacterView();
-        this.characterData = response.data;
-        
-        this._chartData.labels = this.characterData.map(item => item.characters.name);
-        this._chartData.datasets[0].data = this.characterData.map(item => item.views);
-        this.chartRendered = true;
-        console.log("nice: ",this._chartData)
-
-      } catch (error) {
-        console.error(error);
-      }
-    },
-
     async fetchCharacterImages() {
       try {
         const response = await characterInfo.getCharacterImages();
@@ -76,21 +82,106 @@ export default {
       }
     },
 
-    async fetchCharacterSortDetails() {
+    async fetchTotalCharacterDetails() {
       try {
-        const response = await characterInfo.getCharacterSortView();
+        this.chartRendered = false;
+        const response = await characterInfo.getCharacterTotalView();
+        this.characterData = response.data;
+        
+        this._chartData.labels = this.characterData.map(item => item.characters.name);
+        this._chartData.datasets[0].data = this.characterData.map(item => item.views);
+        this.chartRendered = false;
+        this.chartRendered = true;
+
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async fetchTotalCharacterSortDetails() {
+      try {
+        const response = await characterInfo.getCharacterSortTotalView();
         const data = response.data;
 
         this.characterSortData = data;
       } catch(error) {
         console.error(error)
       }
-    }
+    },
+
+    async fetchDailyCharacterDetails() {
+      try {
+        this.chartRendered = false;
+        const response = await characterInfo.getCharacterDailyView();
+        this.characterData = response.data;
+        
+        this._chartData.labels = this.characterData.map(item => item.characters.name);
+        this._chartData.datasets[0].data = this.characterData.map(item => item.views);
+        this.chartRendered = true;
+
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async fetchDailyCharacterSortDetails() {
+      try {
+        const response = await characterInfo.getCharacterSortDailyView();
+        const data = response.data;
+
+        this.characterSortData = data;
+      } catch(error) {
+        console.error(error)
+      }
+    },
+
+    async fetchWeeklyCharacterDetails() {
+      try {
+        this.chartRendered = false;
+        const response = await characterInfo.getCharacterWeeklyView();
+        this.characterData = response.data;
+        
+        this._chartData.labels = this.characterData.map(item => item.characters.name);
+        this._chartData.datasets[0].data = this.characterData.map(item => item.views);
+        this.chartRendered = true;
+
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async fetchWeeklyCharacterSortDetails() {
+      try {
+        const response = await characterInfo.getCharacterSortWeeklyView();
+        const data = response.data;
+
+        this.characterSortData = data;
+      } catch(error) {
+        console.error(error)
+      }
+    },
+
+    handleClick(button) {
+      if (button === "Total") {
+        this.fetchTotalCharacterDetails();
+        this.fetchTotalCharacterSortDetails();
+      } else if (button === "Daily") {
+        this.fetchDailyCharacterDetails();
+        this.fetchDailyCharacterSortDetails();
+      } else if (button === "Weekly") {
+        this.fetchWeeklyCharacterDetails();
+        this.fetchWeeklyCharacterSortDetails();
+      }
+    },
+
+    // renderOff() {
+    //   this.chartRendered = true;
+    // }
   },
 
   created() {
-    this.fetchCharacterDetails();
-    this.fetchCharacterSortDetails();
+    this.fetchTotalCharacterDetails();
+    this.fetchTotalCharacterSortDetails();
     this.fetchCharacterImages();
   }
   
@@ -101,7 +192,13 @@ export default {
 .Chart {
     max-width: 600px;
     max-height: 600px;
-    
 }
+
+#dataChangeList {
+  max-height: 170px;
+  background-color: #757575;
+  color: #ffffff;
+}
+
 
 </style>

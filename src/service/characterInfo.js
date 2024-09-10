@@ -1,17 +1,35 @@
 import apiClient from "./api";
 
-export default {
-    getCharacterView() {
-        return apiClient.get("/view");
-    },
+const default_url = "/view"
 
+export default {
     getCharacterImages() {
         return apiClient.get("/ch_img")
     },
 
-    getCharacterSortView() {
-        return apiClient.get("/viewSort");
-    }
+    getCharacterTotalView() {
+        return apiClient.get(`${default_url}/total`);
+    },
+
+    getCharacterSortTotalView() {
+        return apiClient.get(`${default_url}/sort/total`);
+    },
+
+    getCharacterDailyView() {
+        return apiClient.get(`${default_url}/daily`);
+    },
+
+    getCharacterSortDailyView() {
+        return apiClient.get(`${default_url}/sort/daily`);
+    },
+
+    getCharacterWeeklyView() {
+        return apiClient.get(`${default_url}/Weekly`);
+    },
+
+    getCharacterSortWeeklyView() {
+        return apiClient.get(`${default_url}/sort/Weekly`);
+    },
 
 
 }

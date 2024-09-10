@@ -2,7 +2,7 @@
 <template>
   <v-card
     class="mx-auto nice-card"
-    title="조회수 순위" 
+    title="조회수 순위"
   ></v-card>
     <v-list lines="two" class="custom-list scroll-list"> 
         <v-list-item 
@@ -11,11 +11,10 @@
             :title="index + 1 +'등　　　조회수: ' + item.views "
             link
         >
-        
             <v-avatar color="surface-variant" class="avatar-image">
-                
                 <img :src="characterImages[item.charactersId -1].imageUrl" alt="Avatar">
             </v-avatar>
+            <v-text>　{{item.characters.name}}</v-text>
         <v-divider></v-divider></v-list-item>
         </v-list>
 </template>
@@ -42,7 +41,7 @@ export default {
 <style scoped>
 .custom-list {
   background-color: #ECEFF1;
-  max-height: 600px; 
+  max-height: 700px; 
   overflow-y: auto;
 }
 
