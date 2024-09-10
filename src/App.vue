@@ -1,10 +1,6 @@
 <template>
-  <div >
-    <mainHeader class="main-header" />
-    <div class="content">
-      <router-view />
-    </div>
-  </div>
+      <mainHeader class="main-header" />
+      <router-view class="content"/>
 </template>
 
 <script>
@@ -19,23 +15,22 @@ export default {
 </script>
 
 <style>
+.content {
+  margin-top: 60px;
+  padding: 20px;
+}
 .main-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 60px;
-  z-index: 1000;
   background-color: #fff;
 }
 
-.content {
-  margin-top: 60px;
-  padding: 20px;
-}
 
 #app {
-  background-color: #000000; /* 원하는 배경색 */
+  background-color: #616161; /* 원하는 배경색 */
   min-height: 100vh; /* 배경이 화면 전체를 덮도록 설정 */
 }
 </style>
